@@ -1,0 +1,228 @@
+/* ── Report viewer (read-only markdown) ──────── */
+
+.report-viewer {
+  color: var(--foreground);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* ── Headings ────────────────────────────────── */
+
+.report-viewer h1 {
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.report-viewer h2 {
+  font-size: 1.55em;
+  font-weight: 650;
+  line-height: 1.2;
+  margin-top: 1.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.report-viewer h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.report-viewer h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Paragraphs ──────────────────────────────── */
+
+.report-viewer p {
+  margin: 0.6rem 0;
+}
+
+/* ── Links ───────────────────────────────────── */
+
+.report-viewer a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: color-mix(in oklch, var(--primary) 30%, transparent);
+  transition: text-decoration-color 0.15s;
+}
+
+.report-viewer a:hover {
+  text-decoration-color: color-mix(in oklch, var(--primary) 60%, transparent);
+}
+
+/* ── Lists ───────────────────────────────────── */
+
+.report-viewer ul {
+  list-style-type: disc;
+  margin: 0.5rem 0;
+  padding-left: 1.6em;
+}
+
+.report-viewer ol {
+  list-style-type: decimal;
+  margin: 0.5rem 0;
+  padding-left: 1.6em;
+}
+
+.report-viewer li {
+  margin-top: 0.2em;
+  line-height: 1.65;
+}
+
+.report-viewer li > p {
+  margin: 0;
+}
+
+/* Nested lists */
+.report-viewer li > ul,
+.report-viewer li > ol {
+  margin: 0.15rem 0;
+}
+
+/* ── Blockquotes ─────────────────────────────── */
+
+.report-viewer blockquote {
+  border-left: 3px solid color-mix(in oklch, var(--primary) 30%, transparent);
+  background: color-mix(in oklch, var(--muted) 30%, transparent);
+  padding: 0.5rem 1rem;
+  margin: 0.75rem 0;
+  border-radius: 0 0.375rem 0.375rem 0;
+  font-style: normal;
+}
+
+.report-viewer blockquote p {
+  margin: 0.25rem 0;
+}
+
+/* ── Horizontal rules ────────────────────────── */
+
+.report-viewer hr {
+  border: none;
+  border-top: 1px solid color-mix(in oklch, var(--border) 40%, transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── Code (inline) ───────────────────────────── */
+
+.report-viewer code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--muted);
+  border-radius: 0.25rem;
+  padding: 0.15em 0.4em;
+}
+
+/* ── Code blocks ─────────────────────────────── */
+
+.report-viewer pre {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--muted);
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.report-viewer pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* ── Tables ──────────────────────────────────── */
+
+.report-viewer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.report-viewer thead {
+  background: color-mix(in oklch, var(--muted) 50%, transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+}
+
+.report-viewer th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted-foreground);
+}
+
+.report-viewer td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 30%, transparent);
+}
+
+.report-viewer tr:hover td {
+  background: color-mix(in oklch, var(--muted) 30%, transparent);
+  transition: background-color 0.15s;
+}
+
+/* ── Strong / emphasis ───────────────────────── */
+
+.report-viewer strong {
+  font-weight: 600;
+}
+
+/* ── Images ──────────────────────────────────── */
+
+.report-viewer img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+/* ── First child no top margin ───────────────── */
+
+.report-viewer > :first-child {
+  margin-top: 0;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 767px) {
+  .report-viewer {
+    font-size: 0.95rem;
+  }
+
+  .report-viewer h1 {
+    font-size: 1.65em;
+  }
+
+  .report-viewer h2 {
+    font-size: 1.35em;
+  }
+
+  .report-viewer h3 {
+    font-size: 1.15em;
+  }
+
+  .report-viewer table {
+    font-size: 0.8rem;
+  }
+
+  .report-viewer th,
+  .report-viewer td {
+    padding: 0.4rem 0.6rem;
+  }
+}

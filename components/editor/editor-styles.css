@@ -1,0 +1,495 @@
+/* Tiptap / ProseMirror editor styles v2 */
+
+.ProseMirror {
+  outline: none;
+  caret-color: var(--foreground);
+  line-height: 1.65;
+  --editor-block-spacing: 0.8rem;
+  /* Extend clickable area: padding-right so clicks to the right of content still focus the block */
+  --editor-block-click-padding-x: 4rem;
+  /* Min height for empty blocks so they're easier to click */
+  --editor-block-min-height: 1.65em;
+  /* Edge: fix caret/input issues from font ligatures (ProseMirror #992) */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
+}
+
+/* ── Typography ──────────────────────────────── */
+
+.ProseMirror h1 {
+  font-size: 2.25em;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 2rem;
+  margin-bottom: 0.25rem;
+  padding-right: var(--editor-block-click-padding-x);
+  min-height: var(--editor-block-min-height);
+}
+
+.ProseMirror h2 {
+  font-size: 1.75em;
+  font-weight: 650;
+  line-height: 1.2;
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
+  padding-right: var(--editor-block-click-padding-x);
+  min-height: var(--editor-block-min-height);
+}
+
+.ProseMirror h3 {
+  font-size: 1.35em;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 1.25rem;
+  margin-bottom: 0.15rem;
+  padding-right: var(--editor-block-click-padding-x);
+  min-height: var(--editor-block-min-height);
+}
+
+.ProseMirror p {
+  margin: 0;
+  padding-right: var(--editor-block-click-padding-x);
+  min-height: var(--editor-block-min-height);
+}
+
+/* Apply spacing to all children except the first one */
+.ProseMirror > *:not(:first-child) {
+  margin-top: var(--editor-block-spacing);
+}
+
+/* ── Placeholder ─────────────────────────────── */
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.ProseMirror .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--muted-foreground);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+
+/* ── Lists ───────────────────────────────────── */
+
+.ProseMirror ul {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.ProseMirror li {
+  margin-top: 0.15em;
+  padding-right: var(--editor-block-click-padding-x);
+  min-height: var(--editor-block-min-height);
+}
+
+.ProseMirror li > p {
+  margin: 0;
+}
+
+/* ── Task list ───────────────────────────────── */
+
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Add spacing between task items - match normal block spacing */
+.ProseMirror ul[data-type="taskList"] > li:not(:first-child) {
+  margin-top: 0.8rem !important;
+}
+
+/* Task lists that follow other blocks get normal block spacing */
+.ProseMirror > * + ul[data-type="taskList"] {
+  margin-top: var(--editor-block-spacing);
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+  flex-shrink: 0;
+  margin-top: 0.3em;
+}
+
+/* Content div: take remaining space, prevent overlap with checkbox */
+.ProseMirror ul[data-type="taskList"] li > div {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Suppress placeholder on list containers — it overlaps with checkboxes / bullets */
+.ProseMirror ul[data-type="taskList"].is-empty::before,
+.ProseMirror ul.is-empty::before,
+.ProseMirror ol.is-empty::before {
+  content: none;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background: transparent;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"]:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E")
+    center / 70% no-repeat;
+}
+
+.ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div > p {
+  text-decoration: line-through;
+  color: var(--muted-foreground);
+}
+
+/* ── Blockquote ──────────────────────────────── */
+
+.ProseMirror blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  padding-right: var(--editor-block-click-padding-x);
+  color: var(--muted-foreground);
+  margin: 0;
+  min-height: var(--editor-block-min-height);
+}
+
+/* ── Code (inline) ───────────────────────────── */
+
+.ProseMirror code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--muted);
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
+}
+
+/* ── Code block ──────────────────────────────── */
+
+.ProseMirror pre {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--muted);
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.ProseMirror pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* ── Horizontal rule ─────────────────────────── */
+
+.ProseMirror hr {
+  border: none;
+  margin: -0.6rem 0;
+  padding: 1.4rem 0;
+  position: relative;
+  background: transparent;
+}
+
+.ProseMirror hr::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+  transform: translateY(-50%);
+}
+
+/* ── Images / media ──────────────────────────── */
+
+.ProseMirror img,
+.ProseMirror video,
+.ProseMirror table {
+  max-width: 100%;
+}
+
+.ProseMirror table,
+.ProseMirror pre {
+  overflow-x: auto;
+}
+
+/* ── Page block (subpage link) ────────────────── */
+
+.ProseMirror .page-block-wrapper {
+  margin: 0;
+}
+
+.ProseMirror .page-block-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.45em 0.6em;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: background-color 0.15s;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ProseMirror .page-block-link:hover {
+  background: var(--muted);
+}
+
+.ProseMirror .page-block-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+}
+
+.ProseMirror .page-block-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Block handle & drag ─────────────────────── */
+
+.editor-block-dragging {
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+/* Overlay that dims the original block during drag (60% opaque = block appears at 40%) */
+.editor-block-dim-overlay {
+  pointer-events: none;
+  z-index: 25;
+  background: var(--background);
+  opacity: 0.6;
+}
+
+/* Bluish selection overlay when block is selected via grip */
+.editor-block-selection-overlay {
+  pointer-events: none;
+  z-index: 9999;
+  background: rgb(35 131 226 / 0.14);
+  border-radius: 4px;
+}
+
+/* Drag overlay: first line clear, fade to transparent from line 2 onwards */
+.editor-block-drag-preview {
+  --preview-line-height: 1.65em;
+  max-height: calc(var(--preview-line-height) * 2.5);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0,
+    black var(--preview-line-height),
+    transparent calc(var(--preview-line-height) * 1.8)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0,
+    black var(--preview-line-height),
+    transparent calc(var(--preview-line-height) * 1.8)
+  );
+}
+
+/* ── Responsive heading sizes ────────────────── */
+
+@media (max-width: 900px) {
+  .ProseMirror h1 {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .ProseMirror h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .ProseMirror h3 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+}
+
+/* ── Mobile: reduce block click padding ──────── */
+
+@media (max-width: 767px) {
+  .ProseMirror {
+    --editor-block-click-padding-x: 1rem;
+  }
+
+  .ProseMirror h1 {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .ProseMirror h2 {
+    font-size: 1.35rem;
+    margin-top: 1.25rem;
+  }
+
+  .ProseMirror h3 {
+    font-size: 1.15rem;
+    margin-top: 1rem;
+  }
+}
+
+/* ── Dark mode overrides ─────────────────────── */
+
+.dark .editor-block-selection-overlay {
+  background: rgb(35 131 226 / 0.22);
+}
+
+.dark .ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"]:checked::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+}
+
+/* ── Inline comment highlight ────────────────── */
+
+.inline-comment-highlight {
+  background-color: rgb(255 212 0 / 0.25);
+  border-bottom: 2px solid rgb(255 212 0 / 0.6);
+  padding: 1px 0;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+}
+
+.inline-comment-highlight:hover {
+  background-color: rgb(255 212 0 / 0.4);
+}
+
+/* ── Suggestion highlight ────────────────────── */
+
+.suggestion-highlight {
+  background-color: rgb(0 180 100 / 0.12);
+  border-bottom: 2px dashed rgb(0 180 100 / 0.5);
+  padding: 1px 0;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+}
+
+.suggestion-highlight:hover {
+  background-color: rgb(0 180 100 / 0.25);
+}
+
+/* ── Dark mode overrides for annotations ─────── */
+
+.dark .inline-comment-highlight {
+  background-color: rgb(255 212 0 / 0.15);
+  border-bottom-color: rgb(255 212 0 / 0.45);
+}
+
+.dark .inline-comment-highlight:hover {
+  background-color: rgb(255 212 0 / 0.28);
+}
+
+.dark .suggestion-highlight {
+  background-color: rgb(0 180 100 / 0.1);
+  border-bottom-color: rgb(0 180 100 / 0.4);
+}
+
+.dark .suggestion-highlight:hover {
+  background-color: rgb(0 180 100 / 0.2);
+}
+
+/* ── Comment input (no scrollbar to avoid overlap with send button) ── */
+
+.comment-input-textarea {
+  scrollbar-width: none;
+}
+
+.comment-input-textarea::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Tables (TipTap) ────────────────────────── */
+
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0;
+  table-layout: auto;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  min-width: 80px;
+  position: relative;
+}
+
+.ProseMirror th {
+  background: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted-foreground);
+}
+
+.ProseMirror td {
+  font-size: 0.875rem;
+}
+
+.ProseMirror tr:hover td {
+  background: var(--muted);
+  transition: background-color 0.15s;
+}
+
+.ProseMirror th p,
+.ProseMirror td p {
+  margin: 0;
+  padding-right: 0;
+  min-height: auto;
+}
