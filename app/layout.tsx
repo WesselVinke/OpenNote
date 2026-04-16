@@ -10,8 +10,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Notes",
-  description: "An open-source block-editor workspace",
+  title: "OpenNote",
+  description: "A self-hostable block-editor workspace",
 };
 
 export default function RootLayout({

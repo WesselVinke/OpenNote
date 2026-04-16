@@ -23,6 +23,6 @@ export const useUIStore = create<UIStore>()(
       setSidebarWidth: (width) => set({ sidebarWidth: width }),
       setSearchOpen: (open) => set({ searchOpen: open }),
     }),
-    { name: "open-notes-ui" }
+    { name: "opennote-ui" }
   )
 );

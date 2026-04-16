@@ -1,7 +1,7 @@
 {
-  "name": "open-notes",
+  "name": "opennote",
   "version": "0.1.0",
-  "description": "An open-source block-editor workspace built with Next.js, React, Prisma, and TipTap",
+  "description": "OpenNote — a self-hostable block-editor workspace built with Next.js, React, Prisma, and TipTap",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
