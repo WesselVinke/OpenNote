@@ -1,6 +1,6 @@
 # OpenNote
 
-> **Status:** early / experimental — APIs, schema, and UI may change.
+> **Status:** early/experimental, it's about 80% there.
 
 ![OpenNote](docs/screenshot.png)
 
@@ -8,9 +8,9 @@ A self-hostable block-editor workspace you actually own. Write pages, nest them,
 
 ## Why this exists
 
-Most block editors you've used are SaaS: your notes live behind an account, your data sits on someone else's servers, the editor is closed source, and you can't change anything.
+Most block editors you've used are SaaS: your notes live behind an account, your data sits on someone else's servers, the editor is closed source, and you can't change anything. On the other hand, existing 'opensource' block editors that match quality needs are currently hard to come by. 
 
-OpenNote is the opposite of that:
+OpenNote is:
 
 - **Yours.** Pages are rows in a SQLite file you can back up, grep, or throw in git.
 - **Fast to run.** `npm install && npm run dev`. No Docker, no Postgres, no auth setup.
